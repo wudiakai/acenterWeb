@@ -51,7 +51,12 @@ export default {
 </script>
 
 <style>
-.el-header,
+.el-header {
+  background-color: #f7f7f7;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
+}
 .el-footer {
   background-color: #b3c0d1;
   color: #333;
@@ -60,14 +65,14 @@ export default {
 }
 
 .el-aside {
-  background-color: #d3dce6;
+  background-color: #fdfdfd;
   color: #333;
   text-align: center;
   line-height: 200px;
 }
 
 .el-main {
-  background-color: #e9eef3;
+  background-color: #fdfdfd;
   color: #333;
   text-align: center;
   line-height: 160px;
