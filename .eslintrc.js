@@ -5,6 +5,7 @@ module.exports = {
   },
   extends: [
     'plugin:vue/essential',
+    'plugin:vue/recommended', // 在 .eslintrc.js 文件中加上这一行代码
     '@vue/standard'
   ],
   parserOptions: {
