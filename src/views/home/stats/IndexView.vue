@@ -1,36 +1,32 @@
 <template>
-  <div class="input">
-    <el-row :gutter="5">
-      <el-col :span="6">
-        <div>
-          <el-input
-            v-model="input1"
-            placeholder="please input"
-            clearable
-          />
-        </div>
-      </el-col>
-      <el-col :span="6">
-        <div>
-          <el-input
-            v-model="input2"
-            placeholder="please input"
-            show-password
-            clearable
-          />
-        </div>
-      </el-col>
-      <el-col :span="6">
-        <div>
-          <el-input placeholder="please input" />
-        </div>
-      </el-col>
-      <el-col :span="6">
-        <div>
-          <el-input placeholder="please input" />
-        </div>
-      </el-col>
-    </el-row>
+  <div class="button">
+    <el-container>
+      <el-header>
+        <el-button
+          ref="btn_prj"
+          @click="choosePrj"
+        >
+          解决方案
+        </el-button>
+        <el-button
+          ref="btn_module"
+          @click="chooseModule"
+        >
+          模块说明
+        </el-button>
+        <el-button
+          ref="btn_api"
+          @click="chooseApi"
+        >
+          接口定义
+        </el-button>
+      </el-header>
+      <el-header>header</el-header>
+      <el-container>
+        <el-aside>aside</el-aside>
+        <el-main>main</el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
@@ -44,6 +40,23 @@ export default {
       input2: '2',
       input3: '3',
       input4: '4'
+    }
+  },
+  methods: {
+    choosePrj () {
+      this.$refs.btn_prj.type = 'primary'
+      this.$refs.btn_module.type = ''
+      this.$refs.btn_api.type = ''
+    },
+    chooseModule () {
+      this.$refs.btn_prj.type = ''
+      this.$refs.btn_module.type = 'primary'
+      this.$refs.btn_api.type = ''
+    },
+    chooseApi () {
+      this.$refs.btn_prj.type = ''
+      this.$refs.btn_module.type = ''
+      this.$refs.btn_api.type = 'primary'
     }
   }
 }
@@ -84,10 +97,10 @@ export default {
   font-size: 30px;
   color: blueviolet;
 }
-.el-button{
+/* .el-button{
   background-color: blueviolet;
   color: white;
-}
+} */
 .selected{
   background-color: blue;
   color:white;
