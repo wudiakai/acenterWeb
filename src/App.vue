@@ -1,12 +1,62 @@
 <template>
   <div id="app">
-    <!-- <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav> -->
+    <el-row>
+      <el-button
+        ref="btn_prj"
+        type="primary"
+        @click="choosePrj"
+      >
+        解决方案
+      </el-button>
+      <el-button
+        ref="btn_module"
+        @click="chooseModule"
+      >
+        模块说明
+      </el-button>
+      <el-button
+        ref="btn_api"
+        @click="chooseApi"
+      >
+        接口定义
+      </el-button>
+    </el-row>
+
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  // name: 'Input',
+
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    choosePrj () {
+      this.$refs.btn_prj.type = 'primary'
+      this.$refs.btn_module.type = ''
+      this.$refs.btn_api.type = ''
+      this.$router.push('/user')
+    },
+    chooseModule () {
+      this.$refs.btn_prj.type = ''
+      this.$refs.btn_module.type = 'primary'
+      this.$refs.btn_api.type = ''
+      this.$router.push('/stats')
+    },
+    chooseApi () {
+      this.$refs.btn_prj.type = ''
+      this.$refs.btn_module.type = ''
+      this.$refs.btn_api.type = 'primary'
+      this.$router.push('/wms/list')
+    }
+  }
+}
+</script>
 
 <style>
 #app {
