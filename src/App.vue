@@ -3,7 +3,6 @@
     <el-row>
       <el-button
         ref="btn_prj"
-        type="primary"
         @click="choosePrj"
       >
         解决方案
@@ -40,7 +39,7 @@ export default {
       this.$refs.btn_prj.type = 'primary'
       this.$refs.btn_module.type = ''
       this.$refs.btn_api.type = ''
-      this.$router.push('/user')
+      this.$router.push('/stats')
     },
     chooseModule () {
       this.$refs.btn_prj.type = ''

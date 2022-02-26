@@ -3,24 +3,7 @@
     <el-container>
       <el-header>
         <el-row>
-          <el-button>方案说明</el-button>
-          <el-button>模块说明</el-button>
-          <el-button>接口定义</el-button>
-          <!-- <el-button type="primary">
-            主要按钮
-          </el-button>
-          <el-button type="success">
-            成功按钮
-          </el-button>
-          <el-button type="info">
-            信息按钮
-          </el-button>
-          <el-button type="warning">
-            警告按钮
-          </el-button>
-          <el-button type="danger">
-            危险按钮
-          </el-button> -->
+          面包屑
         </el-row>
       </el-header>
       <el-container>

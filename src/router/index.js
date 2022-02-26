@@ -19,27 +19,29 @@ const routes = [
         path: '/stats', // 数据管理
         name: 'stats',
         component: () => import('../views/home/stats/IndexView.vue')
-      },
-      {
-        path: '/user', // 数据管理
-        name: 'user',
-        component: () => import('../views/home/user/IndexView.vue')
-      },
-      {
-        path: '/wms', // 信息管理
-        name: 'wms',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import('../views/home/wms/IndexView.vue'),
-        children: [
-          {
-            path: '/wms/list',
-            name: 'wmsList',
-            component: () => import('../views/home/wms/ListView.vue')
-          }
-        ]
       }
+      // {
+      //   path: '/user', // 数据管理
+      //   name: 'user',
+      //   component: () => import('../views/home/user/IndexView.vue')
+      // },
+      // {
+      //   path: '/modules', // 功能模块
+      //   name: 'modules',
+      //   component: () => import('../views/home/modules/IndexView.vue'),
+      //   children: [
+      //     {
+      //       path: '/modules/inputView',
+      //       name: 'inputView',
+      //       component: () => import('../views/home/modules/InputView.html')
+      //     },
+      //     {
+      //       path: '/modules/vms',
+      //       name: 'vms',
+      //       component: () => import('../views/home/modules/VMS.html')
+      //     }
+      //   ]
+      // }
     ]
   }
 ]

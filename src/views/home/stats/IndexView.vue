@@ -1,48 +1,82 @@
 <template>
   <div class="button">
     <el-container>
-      <el-header>
-        <el-button
-          ref="btn_prj"
-          @click="choosePrj"
-        >
-          解决方案
-        </el-button>
-        <el-button
-          ref="btn_module"
-          @click="chooseModule"
-        >
-          模块说明
-        </el-button>
-        <el-button
-          ref="btn_api"
-          @click="chooseApi"
-        >
-          接口定义
-        </el-button>
-      </el-header>
-      <el-header>header</el-header>
       <el-container>
-        <el-aside>aside</el-aside>
-        <el-main>main</el-main>
+        <!-- <el-aside>aside</el-aside> -->
+        <el-main>
+          <p align="left">
+            <DemoMd class="markdown-body" />
+          </p>
+          <mkccontent />
+        </el-main>
+        <el-container>
+          <div
+            style="position: fixed;
+    float: right;
+    top: 85%;
+    right: 40px;
+    width: 160px;"
+          >
+            <a href="javascript:scroll(0,0)">返回顶部</a>
+            <!-- <button
+              οnclick="showOrCloseCategory()"
+              style="cursor:pointer;border:0;background-color:white;text-decoration:underline;display:inline-block;color:#4183C4;"
+            >
+              折叠/展开
+            </button>
+          </div> -->
+            <!--文章主体部分-->
+            <div
+              id="book_body"
+              class="book-body"
+              style="width:90%;display:block"
+            />
+            <!--目录栏，设置占用宽度为20%可以根据实际情况设置-->
+            <div
+              id="category"
+              class="book-summary"
+              style="width:20%;display:block"
+            />
+          </div>
+        </el-container>
       </el-container>
     </el-container>
   </div>
 </template>
 
 <script>
+import DemoMd from '../modules/VMS.md'
+import MarkdownIt from 'markdown-it'
+// import MarkdownItVue from 'markdown-it-vue'
+import 'markdown-it-vue/dist/markdown-it-vue.css'
+// import InputView from '../modules/InputView.html'
 export default {
   // name: 'Input',
-
+  components: {
+    // MarkdownItVue
+    DemoMd
+  },
   data () {
     return {
       input1: '1',
       input2: '2',
       input3: '3',
       input4: '4'
+      // content: ''
     }
   },
+  mounted () {
+    console.log('mounted ..........' + DemoMd)
+    // const md = new MarkdownIt()
+    // this.content = md.render(DemoMd.toString())
+    // this.content = DemoMd
+    console.log('mounted ..........' + this.content)
+  },
   methods: {
+    markdown () {
+      const md = new MarkdownIt()
+      this.content = md.render(DemoMd)
+    },
     choosePrj () {
       this.$refs.btn_prj.type = 'primary'
       this.$refs.btn_module.type = ''
