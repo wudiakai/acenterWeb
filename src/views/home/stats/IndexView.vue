@@ -4,18 +4,29 @@
       <el-container>
         <!-- <el-aside>aside</el-aside> -->
         <el-main>
-          <p align="left">
-            <DemoMd class="markdown-body" />
+          <p
+            align="left"
+          >
+            <DemoMd
+              id="sss"
+              class="markdown-body"
+            />
           </p>
           <mkccontent />
         </el-main>
-        <el-container>
+        <el-aside>
+          <li
+            v-for="item in arr"
+            :key="item"
+          >
+            {{ item }}
+          </li>
           <div
             style="position: fixed;
-    float: right;
-    top: 85%;
-    right: 40px;
-    width: 160px;"
+              float: right;
+              top: 85%;
+              right: 40px;
+              width: 160px;"
           >
             <a href="javascript:scroll(0,0)">返回顶部</a>
             <!-- <button
@@ -38,7 +49,7 @@
               style="width:20%;display:block"
             />
           </div>
-        </el-container>
+        </el-aside>
       </el-container>
     </el-container>
   </div>
@@ -61,8 +72,11 @@ export default {
       input1: '1',
       input2: '2',
       input3: '3',
-      input4: '4'
-      // content: ''
+      input4: '4',
+      arr: [{
+        content: '',
+        children: []
+      }]
     }
   },
   mounted () {
@@ -71,6 +85,7 @@ export default {
     // this.content = md.render(DemoMd.toString())
     // this.content = DemoMd
     console.log('mounted ..........' + this.content)
+    this.tete()
   },
   methods: {
     markdown () {
@@ -91,6 +106,71 @@ export default {
       this.$refs.btn_prj.type = ''
       this.$refs.btn_module.type = ''
       this.$refs.btn_api.type = 'primary'
+    },
+    tete () {
+      console.log('tete')
+      const content = document.getElementById('sss').children
+      console.log(content[0])
+      // console.log(content[0].DOCUMENT_TYPE_NODE)
+      const nodes = content[0].getElementsByTagName('body')[0].childNodes
+      console.log(nodes)
+
+      let h1 = 0
+      let h2 = 0
+      let h3 = 0
+      let h4 = 0
+      let h5 = 0
+
+      nodes.forEach(element => {
+        const member = { content: '', children: [] }
+        console.log(element)
+        console.log(element.nodeName.toLowerCase())
+        // if element ===
+        if (element.localName.toLowerCase() === 'h1') {
+          // console.log(element.textContent)
+          member.content = element.textContent
+          if (h1 === 0) {
+            this.arr[0] = member
+            h1++
+          } else {
+            this.arr.push(member)
+            h1++
+          }
+          h2 = 0
+          h3 = 0
+          h4 = 0
+          h5 = 0
+        }
+        if (element.localName.toLowerCase() === 'h2') {
+          member.content = element.textContent
+          this.arr[h1 - 1].children.push(member)
+          h2++
+          h3 = 0
+          h4 = 0
+          h5 = 0
+        }
+        if (element.localName.toLowerCase() === 'h3') {
+          member.content = element.textContent
+          this.arr[h1 - 1].children[h2 - 1].children.push(member)
+          h3++
+          h4 = 0
+          h5 = 0
+        }
+        if (element.localName.toLowerCase() === 'h4') {
+          member.content = element.textContent
+          this.arr[h1 - 1].children[h2 - 1].children[h3 - 1].children.push(member)
+          h4++
+          h5 = 0
+        }
+        if (element.localName.toLowerCase() === 'h5') {
+          member.content = element.textContent
+          this.arr[h1 - 1].children[h2 - 1].children[h3 - 1].children[h4 - 1].children.push(member)
+          h5++
+          console.log(h5)
+        }
+      })
+      console.log('end')
+      console.log(this.arr)
     }
   }
 }
