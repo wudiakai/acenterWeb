@@ -12,12 +12,16 @@
             id="md_show"
             align="left"
           /> -->
+
           <div
             id="md_show"
             align="left"
-            v-html="content"
           >
-            {{ content }}
+            <VueMarkdown
+              :source="content"
+              class="markdown-body"
+            />
+            <!-- <p>{{ content }}</p> -->
           </div>
         </el-main>
         <el-aside>
@@ -64,9 +68,13 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
 // import DemoMd from '../modules/VMS.md'
-import MarkdownIt from 'markdown-it'
+// import MarkdownIt from 'markdown-it'
+import VueMarkdown from 'vue-markdown'
+import hljs from 'highlight.js'
+import 'github-markdown-css'
+import 'highlight.js/styles/googlecode.css'
 // import MarkdownItVue from 'markdown-it-vue'
-import 'markdown-it-vue/dist/markdown-it-vue.css'
+// import 'markdown-it-vue/dist/markdown-it-vue.css'
 import axios from 'axios'
 // import InputView from '../modules/InputView.html'
 export default {
@@ -74,14 +82,12 @@ export default {
   components: {
     // MarkdownItVue
     // DemoMd
+    VueMarkdown
   },
   data () {
     return {
       content: '',
-      input1: '1',
-      input2: '2',
-      input3: '3',
-      input4: '4',
+      list:[],
       arr: [{
         content: '',
         children: []
@@ -94,25 +100,28 @@ export default {
     // this.content = md.render(DemoMd.toString())
     // this.content = DemoMd
     console.log('mounted ..........' + this.content)
-    // const that = this
-    axios.get('http://10.1.79.81:2022/markdown/VMS').then((result) => {
-      console.log(result)
-      console.log('msg' + result.data.msg)
-      const md = new MarkdownIt()
-      let tmp = md.render(result.data.data)
-      // document.getElementById('md_show').innerHTML = tmp
-      // that.content.innerHTML = md.render(result.data.data)
-      that.content = md.render(result.data.data)
-      console.log(that.content)
-      this.tete()
+    const that = this
+    axios.get('http://localhost:2022/markdown_list').then((result) => {
+       console.log(result.data)
+      that.list = result.data
+      console.log(that.list);
+      console.log(that.list[0]);
+      that.markdown(that.list[0])
     }).catch((err) => {
-      console.log('error: ' + err)
+       console.log('error: ' + err)
     })
   },
   methods: {
-    markdown () {
-      const md = new MarkdownIt()
-      this.content = md.render()
+    markdown (file) {
+      console.log('markdown ' + file);
+      const that = this
+      axios.get('http://localhost:2022/markdown/'+file).then((result) => {
+        that.content = result.data.data
+        console.log(that.content)
+        that.tete()
+      }).catch((err) => {
+        console.log('error: ' + err)
+      })
     },
     choosePrj () {
       this.$refs.btn_prj.type = 'primary'
@@ -221,14 +230,14 @@ export default {
 .el-fooer{
   background-color: gray;
 }
-.el-aside{
+/* .el-aside{
   background-color: yellowgreen;
   max-width: 200px;
   min-height: 50px;
-}
-.el-main{
+} */
+/* .el-main{
   background-color: aliceblue;
-}
+} */
 .el-icon-edit{
   font-size: 30px;
   color: blueviolet;
