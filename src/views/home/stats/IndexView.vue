@@ -4,15 +4,21 @@
       <el-container>
         <!-- <el-aside>aside</el-aside> -->
         <el-main>
-          <p
-            align="left"
-          >
-            <DemoMd
+          <!-- <DemoMd
               id="sss"
               class="markdown-body"
-            />
-          </p>
-          <mkccontent />
+            /> -->
+          <!-- <p
+            id="md_show"
+            align="left"
+          /> -->
+          <div
+            id="md_show"
+            align="left"
+            v-html="content"
+          >
+            {{ content }}
+          </div>
         </el-main>
         <el-aside>
           <li
@@ -55,20 +61,23 @@
   </div>
 </template>
 
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
-import DemoMd from '../modules/VMS.md'
+// import DemoMd from '../modules/VMS.md'
 import MarkdownIt from 'markdown-it'
 // import MarkdownItVue from 'markdown-it-vue'
 import 'markdown-it-vue/dist/markdown-it-vue.css'
+import axios from 'axios'
 // import InputView from '../modules/InputView.html'
 export default {
   // name: 'Input',
   components: {
     // MarkdownItVue
-    DemoMd
+    // DemoMd
   },
   data () {
     return {
+      content: '',
       input1: '1',
       input2: '2',
       input3: '3',
@@ -80,17 +89,30 @@ export default {
     }
   },
   mounted () {
-    console.log('mounted ..........' + DemoMd)
+    // console.log('mounted ..........' + DemoMd)
     // const md = new MarkdownIt()
     // this.content = md.render(DemoMd.toString())
     // this.content = DemoMd
     console.log('mounted ..........' + this.content)
-    this.tete()
+    // const that = this
+    axios.get('http://10.1.79.81:2022/markdown/VMS').then((result) => {
+      console.log(result)
+      console.log('msg' + result.data.msg)
+      const md = new MarkdownIt()
+      let tmp = md.render(result.data.data)
+      // document.getElementById('md_show').innerHTML = tmp
+      // that.content.innerHTML = md.render(result.data.data)
+      that.content = md.render(result.data.data)
+      console.log(that.content)
+      this.tete()
+    }).catch((err) => {
+      console.log('error: ' + err)
+    })
   },
   methods: {
     markdown () {
       const md = new MarkdownIt()
-      this.content = md.render(DemoMd)
+      this.content = md.render()
     },
     choosePrj () {
       this.$refs.btn_prj.type = 'primary'
