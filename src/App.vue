@@ -39,7 +39,7 @@ export default {
       this.$refs.btn_prj.type = 'primary'
       this.$refs.btn_module.type = ''
       this.$refs.btn_api.type = ''
-      this.$router.push('/stats')
+      this.$router.push('/home')
     },
     chooseModule () {
       this.$refs.btn_prj.type = ''
