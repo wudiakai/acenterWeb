@@ -7,7 +7,10 @@
         </el-row>
       </el-header>
       <el-container>
-        <el-aside width="200px">
+        <el-aside
+          v-if="false"
+          width="200px"
+        >
           <NavMenu />
         </el-aside>
         <el-main><router-view /></el-main>

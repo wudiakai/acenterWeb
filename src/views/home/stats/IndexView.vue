@@ -2,42 +2,34 @@
   <div class="button">
     <el-container>
       <el-container>
-        <!-- <el-aside>aside</el-aside> -->
-        <el-main>
-          <!-- <DemoMd
-              id="sss"
-              class="markdown-body"
-            /> -->
-          <!-- <p
-            id="md_show"
-            align="left"
-          /> -->
+        <el-aside>
+          <el-menu v-for="item in list" :key="item" align="left" default-active="1" class="el-menu-vertical-demo" router>
+            <el-menu-item v-if="!item.submenu">
+              <i class="el-icon-menu" />
+              <span slot="title" @click="markdown($event.title)">{{ item.title }}</span>
+            </el-menu-item>
 
-          <div
-            id="md_show"
-            align="left"
-          >
-            <VueMarkdown
-              :source="content"
-              class="markdown-body"
-            />
-            <!-- <p>{{ content }}</p> -->
+            <el-submenu v-else>
+              <template slot="title">
+                <i class="el-icon-menu" />
+                {{ item.title }}
+              </template>
+              <el-menu-item v-for="sitem in item.sublist" :key="sitem">
+                {{ sitem }}
+              </el-menu-item>
+            </el-submenu>
+          </el-menu>
+        </el-aside>
+        <el-main>
+          <div id="md_show" align="left">
+            <VueMarkdown :source="content" class="markdown-body"/>
           </div>
         </el-main>
         <el-aside>
-          <li
-            v-for="item in arr"
-            :key="item"
-          >
+          <li v-for="item in arr" :key="item">
             {{ item }}
           </li>
-          <div
-            style="position: fixed;
-              float: right;
-              top: 85%;
-              right: 40px;
-              width: 160px;"
-          >
+          <div style="position: fixed; float: right;top: 85%;right: 40px;width: 160px;">
             <a href="javascript:scroll(0,0)">返回顶部</a>
             <!-- <button
               οnclick="showOrCloseCategory()"
@@ -78,10 +70,8 @@ import 'highlight.js/styles/googlecode.css'
 import axios from 'axios'
 // import InputView from '../modules/InputView.html'
 export default {
-  // name: 'Input',
+  name: 'Input',
   components: {
-    // MarkdownItVue
-    // DemoMd
     VueMarkdown
   },
   data () {
@@ -95,18 +85,14 @@ export default {
     }
   },
   mounted () {
-    // console.log('mounted ..........' + DemoMd)
-    // const md = new MarkdownIt()
-    // this.content = md.render(DemoMd.toString())
-    // this.content = DemoMd
     console.log('mounted ..........' + this.content)
     const that = this
     axios.get('http://localhost:2022/markdown_list').then((result) => {
        console.log(result.data)
       that.list = result.data
       console.log(that.list);
-      console.log(that.list[0]);
-      that.markdown(that.list[0])
+      console.log(that.list[0]['title']);
+      that.markdown(that.list[0]['title'])
     }).catch((err) => {
        console.log('error: ' + err)
     })
@@ -118,7 +104,7 @@ export default {
       axios.get('http://localhost:2022/markdown/'+file).then((result) => {
         that.content = result.data.data
         console.log(that.content)
-        that.tete()
+        // that.tete()
       }).catch((err) => {
         console.log('error: ' + err)
       })
@@ -138,71 +124,71 @@ export default {
       this.$refs.btn_module.type = ''
       this.$refs.btn_api.type = 'primary'
     },
-    tete () {
-      console.log('tete')
-      const content = document.getElementById('sss').children
-      console.log(content[0])
-      // console.log(content[0].DOCUMENT_TYPE_NODE)
-      const nodes = content[0].getElementsByTagName('body')[0].childNodes
-      console.log(nodes)
+    // tete () {
+    //   console.log('tete')
+    //   const content = document.getElementById('sss').children
+    //   console.log(content[0])
+    //   // console.log(content[0].DOCUMENT_TYPE_NODE)
+    //   const nodes = content[0].getElementsByTagName('body')[0].childNodes
+    //   console.log(nodes)
 
-      let h1 = 0
-      let h2 = 0
-      let h3 = 0
-      let h4 = 0
-      let h5 = 0
+    //   let h1 = 0
+    //   let h2 = 0
+    //   let h3 = 0
+    //   let h4 = 0
+    //   let h5 = 0
 
-      nodes.forEach(element => {
-        const member = { content: '', children: [] }
-        console.log(element)
-        console.log(element.nodeName.toLowerCase())
-        // if element ===
-        if (element.localName.toLowerCase() === 'h1') {
-          // console.log(element.textContent)
-          member.content = element.textContent
-          if (h1 === 0) {
-            this.arr[0] = member
-            h1++
-          } else {
-            this.arr.push(member)
-            h1++
-          }
-          h2 = 0
-          h3 = 0
-          h4 = 0
-          h5 = 0
-        }
-        if (element.localName.toLowerCase() === 'h2') {
-          member.content = element.textContent
-          this.arr[h1 - 1].children.push(member)
-          h2++
-          h3 = 0
-          h4 = 0
-          h5 = 0
-        }
-        if (element.localName.toLowerCase() === 'h3') {
-          member.content = element.textContent
-          this.arr[h1 - 1].children[h2 - 1].children.push(member)
-          h3++
-          h4 = 0
-          h5 = 0
-        }
-        if (element.localName.toLowerCase() === 'h4') {
-          member.content = element.textContent
-          this.arr[h1 - 1].children[h2 - 1].children[h3 - 1].children.push(member)
-          h4++
-          h5 = 0
-        }
-        if (element.localName.toLowerCase() === 'h5') {
-          member.content = element.textContent
-          this.arr[h1 - 1].children[h2 - 1].children[h3 - 1].children[h4 - 1].children.push(member)
-          h5++
-          console.log(h5)
-        }
-      })
-      console.log('end')
-      console.log(this.arr)
-    }
+    //   nodes.forEach(element => {
+    //     const member = { content: '', children: [] }
+    //     console.log(element)
+    //     console.log(element.nodeName.toLowerCase())
+    //     // if element ===
+    //     if (element.localName.toLowerCase() === 'h1') {
+    //       // console.log(element.textContent)
+    //       member.content = element.textContent
+    //       if (h1 === 0) {
+    //         this.arr[0] = member
+    //         h1++
+    //       } else {
+    //         this.arr.push(member)
+    //         h1++
+    //       }
+    //       h2 = 0
+    //       h3 = 0
+    //       h4 = 0
+    //       h5 = 0
+    //     }
+    //     if (element.localName.toLowerCase() === 'h2') {
+    //       member.content = element.textContent
+    //       this.arr[h1 - 1].children.push(member)
+    //       h2++
+    //       h3 = 0
+    //       h4 = 0
+    //       h5 = 0
+    //     }
+    //     if (element.localName.toLowerCase() === 'h3') {
+    //       member.content = element.textContent
+    //       this.arr[h1 - 1].children[h2 - 1].children.push(member)
+    //       h3++
+    //       h4 = 0
+    //       h5 = 0
+    //     }
+    //     if (element.localName.toLowerCase() === 'h4') {
+    //       member.content = element.textContent
+    //       this.arr[h1 - 1].children[h2 - 1].children[h3 - 1].children.push(member)
+    //       h4++
+    //       h5 = 0
+    //     }
+    //     if (element.localName.toLowerCase() === 'h5') {
+    //       member.content = element.textContent
+    //       this.arr[h1 - 1].children[h2 - 1].children[h3 - 1].children[h4 - 1].children.push(member)
+    //       h5++
+    //       console.log(h5)
+    //     }
+    //   })
+    //   console.log('end')
+    //   console.log(this.arr)
+    // }
   }
 }
 </script>
