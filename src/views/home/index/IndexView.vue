@@ -1,29 +1,13 @@
 <template>
   <div class="about">
-    <el-container>
-      <el-header>
-        <el-row>
-          面包屑
-        </el-row>
-      </el-header>
-      <el-container>
-        <el-aside
-          v-if="false"
-          width="200px"
-        >
-          <NavMenu />
-        </el-aside>
         <el-main><router-view /></el-main>
-      </el-container>
-    </el-container>
   </div>
 </template>
 
 <script>
-import NavMenu from './NavMenu.vue'
+// import NavMenu from './NavMenu.vue'
 export default {
   components: {
-    NavMenu
   },
   // name: 'IndexView',
   data () {

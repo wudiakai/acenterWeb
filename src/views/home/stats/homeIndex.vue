@@ -1,11 +1,11 @@
 <template>
-  <el-container>
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-      <el-menu
+<el-container >
+  <!-- 左侧导航栏 -->
+  <el-aside width="200px"/>
+  <el-aside class="navibar" width="200px">
+    <el-menu
         align="left"
-        class="el-menu-vertical-demo"
         @select="handleSelect"
-        width=400px
       >
         <template v-for="(item, primary) in list">
           <el-menu-item
@@ -22,23 +22,34 @@
             <el-menu-item
               v-for="(subitem, subindex) in item.sublist"
               :key="subitem"
-              :index="primary.toString()+'-'+subindex.toString()"
+              :index="primary.toString() + '-' + subindex.toString()"
             >
               {{ subitem }}
             </el-menu-item>
           </el-submenu>
         </template>
       </el-menu>
-    </el-aside>
-    <!-- markdown 内容显示区域 -->
+  </el-aside>
+
+   <!-- markdown 内容显示区域 -->
+  <el-container width="500px">
+    <!-- <el-header style="text-align: left; font-size: 21px " class="myheader">
+      <span><b>{{file}}</b></span>
+    </el-header> -->
+
     <el-main>
       <VueMarkdown :source="content" class="markdown-body" id="root" align="left"/>
     </el-main>
+  </el-container>
+  <el-container width = 200px align="right">
     <!-- 右侧边栏 目录 -->
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246)" align='left'>
+    <el-aside class="sidebar" width = 200px align="right">
      <side-catalog align='left' class="catalog" v-bind="catalogProps" v-if="isShowCata"></side-catalog>
     </el-aside>
+     <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
   </el-container>
+</el-container>
+
 </template>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -60,6 +71,7 @@ export default {
   data() {
     return {
       content: '',
+      file: '',
       list: [],
       isShowCata:false,
       catalogProps:{
@@ -81,7 +93,10 @@ export default {
         console.log('error: ' + err)
       })
   },
-
+  mounted(){
+    console.log('mounted');
+    this.choosePrj()
+  },
   methods: {
     handleSelect(key, keyPath) {
       let file = ''
@@ -98,6 +113,7 @@ export default {
       axios
         .get(SERVER_URL + '/markdown/' + file)
         .then((result) => {
+          this.file = file
           that.content = result.data.data
         }).then(() => {
           that.isShowCata = true
@@ -107,8 +123,11 @@ export default {
         })
     },
     choosePrj() {
+      console.log('btn-prj');
       this.$refs.btn_prj.type = 'primary'
+      console.log('btn-module');
       this.$refs.btn_module.type = ''
+      console.log('btn-api');
       this.$refs.btn_api.type = ''
     },
     chooseModule() {
@@ -125,52 +144,32 @@ export default {
 }
 </script>
 
-<style scoped>
-.el-row {
-  background-color: antiquewhite;
-  margin: 20px 0;
-  /* height: 30px 0; */
-}
-.el-col {
-  background-color: aqua;
-  color: white;
-  padding: 10px 0;
-  box-sizing: border-box;
-  border-right: 1px solid white;
-}
-.el-container {
-  background-color: #eee;
-  color: white;
-}
-.el-header {
-  background-color: aqua;
-}
-.el-fooer {
-  background-color: gray;
-}
-/* .el-aside{
-  background-color: yellowgreen;
-  max-width: 200px;
-  min-height: 50px;
-} */
-/* .el-main{
-  background-color: aliceblue;
-} */
-.el-icon-edit {
-  font-size: 30px;
-  color: blueviolet;
-}
-/* .el-button{
-  background-color: blueviolet;
-  color: white;
-} */
-.selected {
-  background-color: blue;
-  color: white;
-}
-.catalog {
-  position: fixed;
-  top: 50px;
-  right: 50px;
-}
+<style>
+  .el-header {
+    background-color: #B3C0D1;
+    color: #333;
+    line-height: 60px;
+  }
+
+  .el-aside {
+    color: #333;
+  }
+  .el-main {
+    left: 200px;
+    right: 200px;
+    overflow-y: scroll;
+  }
+  .navibar {
+    background-color: rgb(238, 241, 246);
+    position: fixed;
+  }
+  .myheader {
+    position: relative;
+        width: 100%;
+        height: 60px;
+  }
+  .sidebar {
+    /* background-color: rgb(238, 241, 246); */
+    position: fixed;
+  }
 </style>

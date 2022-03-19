@@ -19,12 +19,12 @@ const routes = [
         path: '/stats', // 数据管理
         name: 'stats',
         component: () => import('../views/home/stats/IndexView.vue')
+      },
+      {
+        path: '/homeIndex', // 数据管理
+        name: 'homeIndex',
+        component: () => import('../views/home/stats/homeIndex.vue')
       }
-      // {
-      //   path: '/user', // 数据管理
-      //   name: 'user',
-      //   component: () => import('../views/home/user/IndexView.vue')
-      // },
       // {
       //   path: '/modules', // 功能模块
       //   name: 'modules',

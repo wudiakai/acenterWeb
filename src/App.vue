@@ -1,27 +1,29 @@
 <template>
   <div id="app">
-    <el-row>
-      <el-button
-        ref="btn_prj"
-        @click="choosePrj"
-      >
-        解决方案
-      </el-button>
-      <el-button
-        ref="btn_module"
-        @click="chooseModule"
-      >
-        模块说明
-      </el-button>
-      <el-button
-        ref="btn_api"
-        @click="chooseApi"
-      >
-        接口定义
-      </el-button>
-    </el-row>
+    <el-container >
+      <el-header class="myheader1" style="background-color:#f7f7f7">
+        <el-button
+          ref="btn_prj"
+          @click="choosePrj"
+        >
+          解决方案
+        </el-button>
+        <el-button
+          ref="btn_module"
+          @click="chooseModule"
+        >
+          模块说明
+        </el-button>
+        <el-button
+          ref="btn_api"
+          @click="chooseApi"
+        >
+          接口定义
+        </el-button>
+      </el-header>
 
-    <router-view />
+      <router-view />
+    </el-container>
   </div>
 </template>
 
@@ -39,7 +41,7 @@ export default {
       this.$refs.btn_prj.type = 'primary'
       this.$refs.btn_module.type = ''
       this.$refs.btn_api.type = ''
-      this.$router.push('/home')
+      this.$router.push('/homeIndex')
     },
     chooseModule () {
       this.$refs.btn_prj.type = ''
@@ -77,5 +79,13 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.myheader1 {
+  background-color: #f7f7f7;
+  position : sticky;
+  top:0px;
+  left:0px;
+  right:0px;
 }
 </style>

@@ -13,8 +13,6 @@
     "global": "^4.4.0",
     "markdown-it": "^12.3.2",
     "markdown-it-vue": "^1.1.6",
-    "node-sass": "^7.13.0",
-    "sass-loader": "^8.0.2",
     "vue": "^2.6.14",
     "vue-loader": "^17.0.0",
     "vue-markdown": "^2.2.4",
