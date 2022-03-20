@@ -1,12 +1,11 @@
 <template>
-<el-container >
-  <!-- 左侧导航栏 -->
-  <el-aside width="200px"/>
-  <el-aside class="navibar" width="200px">
-    <el-menu
-        align="left"
-        @select="handleSelect"
-      >
+  <el-container>
+    <!-- back to top -->
+    <el-backtop />
+    <!-- 左侧导航栏 -->
+    <!-- <el-aside /> -->
+    <el-aside class="leftbar">
+      <el-menu align="left" @select="handleSelect">
         <template v-for="(item, primary) in list">
           <el-menu-item
             v-if="!item.submenu"
@@ -29,27 +28,35 @@
           </el-submenu>
         </template>
       </el-menu>
-  </el-aside>
+    </el-aside>
 
-   <!-- markdown 内容显示区域 -->
-  <el-container width="500px">
-    <!-- <el-header style="text-align: left; font-size: 21px " class="myheader">
+    <!-- markdown 内容显示区域 -->
+    <el-container class="middle">
+      <!-- <el-header style="text-align: left; font-size: 21px " class="myheader">
       <span><b>{{file}}</b></span>
     </el-header> -->
 
-    <el-main>
-      <VueMarkdown :source="content" class="markdown-body" id="root" align="left"/>
-    </el-main>
-  </el-container>
-  <el-container width = 200px align="right">
+      <el-main>
+        <VueMarkdown
+          :source="content"
+          class="markdown-body"
+          id="root"
+          align="left"
+        />
+      </el-main>
+    </el-container>
     <!-- 右侧边栏 目录 -->
-    <el-aside class="sidebar" width = 200px align="right">
-     <side-catalog align='left' class="catalog" v-bind="catalogProps" v-if="isShowCata"></side-catalog>
-    </el-aside>
-     <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
+    <el-container class="rightbar">
+      <el-aside>
+        <side-catalog
+          align="left"
+          class="catalog"
+          v-bind="catalogProps"
+          v-if="isShowCata"
+        ></side-catalog>
+      </el-aside>
+    </el-container>
   </el-container>
-</el-container>
-
 </template>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -61,7 +68,8 @@ import SideCatalog from 'vue-side-catalog'
 // import SideCatalog from "@/components/main.vue";
 import 'vue-side-catalog/lib/vue-side-catalog.css'
 import axios from 'axios'
-const SERVER_URL='http://10.1.79.81:2022'
+const SERVER_URL = 'http://localhost:2022'
+// const SERVER_URL='http://10.1.79.81:2022'
 export default {
   name: 'Input',
   components: {
@@ -73,12 +81,12 @@ export default {
       content: '',
       file: '',
       list: [],
-      isShowCata:false,
-      catalogProps:{
-         container: '#root',
-         levelList: ["h1", "h2", "h3", "h4", "h5"],
-         watch: true
-      },
+      isShowCata: false,
+      catalogProps: {
+        container: '#root',
+        levelList: ['h1', 'h2', 'h3', 'h4', 'h5'],
+        watch: true
+      }
     }
   },
   async beforeCreate() {
@@ -93,8 +101,8 @@ export default {
         console.log('error: ' + err)
       })
   },
-  mounted(){
-    console.log('mounted');
+  mounted() {
+    console.log('mounted')
     this.choosePrj()
   },
   methods: {
@@ -115,7 +123,8 @@ export default {
         .then((result) => {
           this.file = file
           that.content = result.data.data
-        }).then(() => {
+        })
+        .then(() => {
           that.isShowCata = true
         })
         .catch((err) => {
@@ -123,11 +132,11 @@ export default {
         })
     },
     choosePrj() {
-      console.log('btn-prj');
+      console.log('btn-prj')
       this.$refs.btn_prj.type = 'primary'
-      console.log('btn-module');
+      console.log('btn-module')
       this.$refs.btn_module.type = ''
-      console.log('btn-api');
+      console.log('btn-api')
       this.$refs.btn_api.type = ''
     },
     chooseModule() {
@@ -145,31 +154,36 @@ export default {
 </script>
 
 <style>
-  .el-header {
-    background-color: #B3C0D1;
-    color: #333;
-    line-height: 60px;
-  }
+.el-header {
+  background-color: #b3c0d1;
+  color: #333;
+  line-height: 60px;
+}
 
-  .el-aside {
-    color: #333;
-  }
-  .el-main {
-    left: 200px;
-    right: 200px;
-    overflow-y: scroll;
-  }
-  .navibar {
-    background-color: rgb(238, 241, 246);
-    position: fixed;
-  }
-  .myheader {
-    position: relative;
-        width: 100%;
-        height: 60px;
-  }
-  .sidebar {
-    /* background-color: rgb(238, 241, 246); */
-    position: fixed;
-  }
+/* .el-main {
+  left: 200px;
+  right: 200px;
+  overflow-y: scroll; */
+/* } */
+.leftbar {
+  /* float: left; */
+  left: 0px;
+  width: 200px;
+  /* background-color: rgb(238, 241, 246); */
+  position: absolute;
+}
+.middle {
+  position: relative;
+  top: 70px;
+  bottom: 0;
+  left: 300px;
+  right: 300px;
+}
+.rightbar {
+  /* background-color: rgb(238, 241, 246); */
+  /* float: right; */
+  position: relative;
+  width: 280px;
+  right: 0px;
+}
 </style>

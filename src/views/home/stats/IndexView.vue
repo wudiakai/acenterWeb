@@ -5,7 +5,7 @@
         align="left"
         class="el-menu-vertical-demo"
         @select="handleSelect"
-        width=400px
+        width="400px"
       >
         <template v-for="(item, primary) in list">
           <el-menu-item
@@ -22,7 +22,7 @@
             <el-menu-item
               v-for="(subitem, subindex) in item.sublist"
               :key="subitem"
-              :index="primary.toString()+'-'+subindex.toString()"
+              :index="primary.toString() + '-' + subindex.toString()"
             >
               {{ subitem }}
             </el-menu-item>
@@ -32,11 +32,25 @@
     </el-aside>
     <!-- markdown 内容显示区域 -->
     <el-main>
-      <VueMarkdown :source="content" class="markdown-body" id="root" align="left"/>
+      <VueMarkdown
+        :source="content"
+        class="markdown-body"
+        id="root"
+        align="left"
+      />
     </el-main>
     <!-- 右侧边栏 目录 -->
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246)" align='left'>
-     <side-catalog align='left' class="catalog" v-bind="catalogProps" v-if="isShowCata"></side-catalog>
+    <el-aside
+      width="200px"
+      style="background-color: rgb(238, 241, 246)"
+      align="left"
+    >
+      <side-catalog
+        align="left"
+        class="catalog"
+        v-bind="catalogProps"
+        v-if="isShowCata"
+      ></side-catalog>
     </el-aside>
   </el-container>
 </template>
@@ -50,7 +64,8 @@ import SideCatalog from 'vue-side-catalog'
 // import SideCatalog from "@/components/main.vue";
 import 'vue-side-catalog/lib/vue-side-catalog.css'
 import axios from 'axios'
-const SERVER_URL='http://10.1.79.81:2022'
+const SERVER_URL = 'http://localhost:2022'
+// const SERVER_URL='http://10.1.79.81:2022'
 export default {
   name: 'Input',
   components: {
@@ -61,12 +76,12 @@ export default {
     return {
       content: '',
       list: [],
-      isShowCata:false,
-      catalogProps:{
-         container: '#root',
-         levelList: ["h1", "h2", "h3", "h4", "h5"],
-         watch: true
-      },
+      isShowCata: false,
+      catalogProps: {
+        container: '#root',
+        levelList: ['h1', 'h2', 'h3', 'h4', 'h5'],
+        watch: true
+      }
     }
   },
   async beforeCreate() {
@@ -99,7 +114,8 @@ export default {
         .get(SERVER_URL + '/markdown/' + file)
         .then((result) => {
           that.content = result.data.data
-        }).then(() => {
+        })
+        .then(() => {
           that.isShowCata = true
         })
         .catch((err) => {
