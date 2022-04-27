@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
-import IndexView from '../views/home/index/IndexView.vue'
 
 Vue.use(VueRouter)
 
@@ -11,38 +9,14 @@ const routes = [
     redirect: '/home'
   },
   {
-    path: '/home',
+    path: '/home', // 模块管理
     name: 'home',
-    component: IndexView,
-    children: [
-      {
-        path: '/stats', // 数据管理
-        name: 'stats',
-        component: () => import('../views/home/stats/IndexView.vue')
-      },
-      {
-        path: '/homeIndex', // 数据管理
-        name: 'homeIndex',
-        component: () => import('../views/home/stats/homeIndex.vue')
-      }
-      // {
-      //   path: '/modules', // 功能模块
-      //   name: 'modules',
-      //   component: () => import('../views/home/modules/IndexView.vue'),
-      //   children: [
-      //     {
-      //       path: '/modules/inputView',
-      //       name: 'inputView',
-      //       component: () => import('../views/home/modules/InputView.html')
-      //     },
-      //     {
-      //       path: '/modules/vms',
-      //       name: 'vms',
-      //       component: () => import('../views/home/modules/VMS.html')
-      //     }
-      //   ]
-      // }
-    ]
+    component: () => import('../views/home/index/IndexView.vue')
+  },
+  {
+    path: '/homeIndex', // 数据管理
+    name: 'homeIndex',
+    component: () => import('../views/home/index/homeIndex.vue')
   }
 ]
 

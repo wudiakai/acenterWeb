@@ -7,6 +7,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'github-markdown-css'
 import 'highlight.js/styles/github.css'
 
+// Vue.prototype.$EventBus = new Vue()
+
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
