@@ -1,11 +1,10 @@
 <template>
-  <el-container>
-    <!-- back to top -->
-    <el-backtop />
-    <!-- 左侧导航栏 -->
-    <!-- <el-aside /> -->
-    <el-aside class="leftbar">
-      <el-menu align="left" @select="handleSelect">
+  <el-container ref="myContainer">
+    <el-aside>
+      <el-menu
+        align="left"
+        @select="handleSelect"
+      >
         <template v-for="(item, primary) in list">
           <el-menu-item
             v-if="!item.submenu"
@@ -29,33 +28,23 @@
         </template>
       </el-menu>
     </el-aside>
-
     <!-- markdown 内容显示区域 -->
-    <el-container class="middle">
-      <!-- <el-header style="text-align: left; font-size: 21px " class="myheader">
-      <span><b>{{file}}</b></span>
-    </el-header> -->
-
-      <el-main>
-        <VueMarkdown
-          :source="content"
-          class="markdown-body"
-          id="root"
-          align="left"
-        />
-      </el-main>
-    </el-container>
+    <el-main>
+      <VueMarkdown
+        :source="content"
+        class="markdown-body"
+        id="root"
+        align="left"
+      />
+    </el-main>
     <!-- 右侧边栏 目录 -->
-    <el-container class="rightbar">
-      <el-aside>
-        <side-catalog
-          align="left"
-          class="catalog"
-          v-bind="catalogProps"
-          v-if="isShowCata"
-        ></side-catalog>
-      </el-aside>
-    </el-container>
+    <el-aside style="right:0">
+      <side-catalog
+        class="catalog"
+        v-bind="catalogProps"
+        v-if="isShowCata"
+      ></side-catalog>
+    </el-aside>
   </el-container>
 </template>
 
@@ -68,6 +57,8 @@ import SideCatalog from 'vue-side-catalog'
 // import SideCatalog from "@/components/main.vue";
 import 'vue-side-catalog/lib/vue-side-catalog.css'
 import axios from 'axios'
+import { EventBus } from '@/event-bus.js'
+
 const SERVER_URL = 'http://localhost:2022'
 // const SERVER_URL='http://10.1.79.81:2022'
 export default {
@@ -79,20 +70,20 @@ export default {
   data() {
     return {
       content: '',
-      file: '',
       list: [],
       isShowCata: false,
       catalogProps: {
         container: '#root',
         levelList: ['h1', 'h2', 'h3', 'h4', 'h5'],
         watch: true
-      }
+      },
+      clientHeight:'',
     }
   },
   async beforeCreate() {
     const that = this
     await axios
-      .get(SERVER_URL + '/markdown_list')
+      .get(SERVER_URL + '/markdownList/module')
       .then((result) => {
         that.list = result.data
         that.markdown(that.list[0]['title'])
@@ -101,9 +92,18 @@ export default {
         console.log('error: ' + err)
       })
   },
-  mounted() {
-    console.log('mounted')
-    this.choosePrj()
+  mounted(){
+    console.log('module view mounted')
+    this.highLightButton(0)
+    this.clientHeight =   `${document.documentElement.clientHeight}`
+    window.onresize = function temp() {
+        this.clientHeight = `${document.documentElement.clientHeight}`;
+      };
+  },
+  watch:{
+    clientHeight: function () {
+        this.changeFixed(this.clientHeight)
+      }
   },
   methods: {
     handleSelect(key, keyPath) {
@@ -119,9 +119,8 @@ export default {
     markdown(file) {
       const that = this
       axios
-        .get(SERVER_URL + '/markdown/' + file)
+        .get(SERVER_URL + '/content/' + file)
         .then((result) => {
-          this.file = file
           that.content = result.data.data
         })
         .then(() => {
@@ -131,59 +130,77 @@ export default {
           console.log('error: ' + err)
         })
     },
-    choosePrj() {
-      console.log('btn-prj')
-      this.$refs.btn_prj.type = 'primary'
-      console.log('btn-module')
-      this.$refs.btn_module.type = ''
-      console.log('btn-api')
-      this.$refs.btn_api.type = ''
-    },
-    chooseModule() {
-      this.$refs.btn_prj.type = ''
-      this.$refs.btn_module.type = 'primary'
-      this.$refs.btn_api.type = ''
-    },
-    chooseApi() {
-      this.$refs.btn_prj.type = ''
-      this.$refs.btn_module.type = ''
-      this.$refs.btn_api.type = 'primary'
+    changeFixed(clientHeight){ //动态修改样式
+        this.$refs.myContainer.$el.style.height = clientHeight-20+'px';
+      },
+    highLightButton(id){
+      EventBus.$emit("hightlight", id);
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
+.el-row {
+  background-color: antiquewhite;
+  margin: 20px 0;
+  /* height: 30px 0; */
+}
+.el-col {
+  background-color: aqua;
+  color: white;
+  padding: 10px 0;
+  box-sizing: border-box;
+  border-right: 1px solid white;
+}
+.el-container {
+  position:relative;
+  height: 500px;
+  background-color: #fff;
+  color: white;
+}
 .el-header {
-  background-color: #b3c0d1;
-  color: #333;
-  line-height: 60px;
+  background-color: aqua;
 }
-
-/* .el-main {
-  left: 200px;
-  right: 200px;
-  overflow-y: scroll; */
-/* } */
-.leftbar {
-  /* float: left; */
-  left: 0px;
+.el-fooer {
+  background-color: gray;
+}
+.el-aside{
+  position: fixed;
   width: 200px;
-  /* background-color: rgb(238, 241, 246); */
+  /* height: 200px; */
+  margin: 4% auto;
+  /* left: 0; */
+  /* right: 0; */
+  /* background-color: yellowgreen;
+  max-width: 200px;
+  min-height: 50px; */
+}
+.el-main{
   position: absolute;
+  top:80px;
+  width: 55%;
+  left: 50%;
+  margin: 0 1%;
+  /* scroll:auto; */
+  /* 固定的盒子应该有宽度 */
+  -webkit-transform: translateX(-50%);
+  /* transform: translateX(-60%); */
 }
-.middle {
-  position: relative;
-  top: 70px;
-  bottom: 0;
-  left: 300px;
-  right: 300px;
+.el-icon-edit {
+  font-size: 30px;
+  color: blueviolet;
 }
-.rightbar {
-  /* background-color: rgb(238, 241, 246); */
-  /* float: right; */
-  position: relative;
-  width: 280px;
-  right: 0px;
+/* .el-button{
+  background-color: blueviolet;
+  color: white;
+} */
+.selected {
+  background-color: blue;
+  color: white;
+}
+.catalog {
+  text-align: left;
+  color:black;
 }
 </style>
