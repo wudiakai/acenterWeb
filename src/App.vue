@@ -1,11 +1,13 @@
 <template>
   <div id="app">
-    <el-container>
+    <el-container class="root">
       <el-header class="myheader1">
-        <!-- <el-button ref="btn_prj" @click="choosePrj"> 解决方案 </el-button> -->
-        <el-button :type="active===0?'primary':''" @click="chooseModule"> 模块说明 </el-button>
-        <el-button :type="active===1?'primary':''" @click="chooseApi"> 接口定义 </el-button>
-        <el-button :type="active===2?'primary':''" @click="chooseTools"> 工具 </el-button>
+        <div class="myheader">
+          <!-- <el-button ref="btn_prj" @click="choosePrj"> 解决方案 </el-button> -->
+          <el-button :type="active===0?'primary':''" @click="chooseModule"> 模块说明 </el-button>
+          <el-button :type="active===1?'primary':''" @click="chooseApi"> 接口定义 </el-button>
+          <el-button :type="active===2?'primary':''" @click="chooseTools"> 工具 </el-button>
+        </div>
       </el-header>
         <router-view />
     </el-container>
@@ -17,10 +19,7 @@ import { EventBus } from '@/event-bus.js'
 export default {
   data() {
     return {
-      active: 0,
-      activeModule: '',
-      activeProject: '',
-      activeTools: ''
+      active: 4
     }
   },
   mounted() {
@@ -53,37 +52,18 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
-nav {
-  padding: 30px;
+.myheader{
+  margin: 10px auto;
 }
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-/* .el-header {
-    background-color: #B3C0D1;
-    color: #333;
-    line-height: 60px;
-  } */
 .myheader1 {
   background-color: #fff;
-  position: relative;
+  position: fixed;
   width: 100%;
   top: 0px;
-  left: 0px;
-  right: 0px;
+  margin: 0px auto;
   height: 80px;
+  z-index: 10;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
 }
-
-.active {
-   background: #fd7522;
-   border: 1px solid #fd7522;
-   color: #fff;
- }
 </style>
