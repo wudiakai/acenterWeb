@@ -30,12 +30,14 @@
     </el-aside>
     <!-- markdown 内容显示区域 -->
     <el-main>
+
       <VueMarkdown
         :source="content"
         class="markdown-body"
         id="root"
         align="left"
       />
+
     </el-main>
     <!-- 右侧边栏 目录 -->
     <el-aside style="right:0">
@@ -44,8 +46,15 @@
         v-bind="catalogProps"
         v-if="isShowCata"
       ></side-catalog>
+
     </el-aside>
+    <div class="content">
+      <div class="backtop">
+        <el-backtop target=".content .backtop"></el-backtop>
+      </div>
+    </div>
   </el-container>
+
 </template>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -53,13 +62,13 @@
 import VueMarkdown from 'vue-markdown'
 import 'github-markdown-css'
 import 'highlight.js/styles/googlecode.css'
+import 'vue-side-catalog/lib/vue-side-catalog.css'
 import SideCatalog from 'vue-side-catalog'
 // import SideCatalog from "@/components/main.vue";
-import 'vue-side-catalog/lib/vue-side-catalog.css'
 import axios from 'axios'
 import { EventBus } from '@/event-bus.js'
 
-const SERVER_URL = 'http://localhost:2022'
+const SERVER_URL = 'http://10.1.29.11:2022'
 // const SERVER_URL='http://10.1.79.81:2022'
 export default {
   name: 'Input',
@@ -122,6 +131,7 @@ export default {
         .get(SERVER_URL + '/content/' + file)
         .then((result) => {
           that.content = result.data.data
+          that.gotoTop()
         })
         .then(() => {
           that.isShowCata = true
@@ -130,9 +140,10 @@ export default {
           console.log('error: ' + err)
         })
     },
-    changeFixed(clientHeight){ //动态修改样式
-        this.$refs.myContainer.$el.style.height = clientHeight-20+'px';
-      },
+    gotoTop(){
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    },
     highLightButton(id){
       EventBus.$emit("hightlight", id);
     }
@@ -168,33 +179,21 @@ export default {
 .el-aside{
   position: fixed;
   width: 200px;
-  /* height: 200px; */
-  margin: 4% auto;
-  /* left: 0; */
-  /* right: 0; */
-  /* background-color: yellowgreen;
-  max-width: 200px;
-  min-height: 50px; */
+  margin: 6% auto;
+  overflow-y: hidden;
 }
 .el-main{
   position: absolute;
-  top:80px;
-  width: 55%;
-  left: 50%;
-  margin: 0 1%;
-  /* scroll:auto; */
-  /* 固定的盒子应该有宽度 */
-  -webkit-transform: translateX(-50%);
-  /* transform: translateX(-60%); */
+  max-width: 60%;
+  min-width: 60%;
+  top:65px;
+  margin: 0 20% 0 20% ;
+  direction: ltr;
 }
 .el-icon-edit {
   font-size: 30px;
   color: blueviolet;
 }
-/* .el-button{
-  background-color: blueviolet;
-  color: white;
-} */
 .selected {
   background-color: blue;
   color: white;
@@ -202,5 +201,11 @@ export default {
 .catalog {
   text-align: left;
   color:black;
+}
+.content {
+   height: 100%;
+}
+.backtop {
+    height: 100%;
 }
 </style>

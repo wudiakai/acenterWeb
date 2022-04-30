@@ -1,9 +1,9 @@
 <template>
   <el-container>
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+    <el-aside width="200px">
       <el-menu router :default-active="activeIndex">
       <el-menu-item index="/configtool">
-        <span slot="title">系统配置</span>
+        <span slot="title">配置文件</span>
       </el-menu-item>
       <el-menu-item index="/signtool">
         <span slot="title">应用签名</span>
@@ -17,7 +17,6 @@
     <el-main>
       <router-view/>
     </el-main>
-
   </el-container>
 </template>
 
@@ -25,8 +24,8 @@
 import axios from 'axios'
 import { EventBus } from '@/event-bus.js'
 
-const SERVER_URL = 'http://localhost:2022'
-// const SERVER_URL='http://10.1.79.81:2022'
+const SERVER_URL = 'http://10.1.29.11:2022'
+// const SERVER_URL = 'http://10.1.79.81:2022'
 export default {
   data() {
     return {
@@ -87,15 +86,9 @@ export default {
   margin: 20px 0;
   /* height: 30px 0; */
 }
-.el-col {
-  background-color: aqua;
-  color: white;
-  padding: 10px 0;
-  box-sizing: border-box;
-  border-right: 1px solid white;
-}
 .el-container {
-  background-color: #eee;
+  margin-top: 65px;
+  background-color: #fff;
   color: white;
 }
 .el-header {
@@ -104,14 +97,13 @@ export default {
 .el-fooer {
   background-color: gray;
 }
-/* .el-aside{
-  background-color: yellowgreen;
-  max-width: 200px;
-  min-height: 50px;
-} */
-/* .el-main{
-  background-color: aliceblue;
-} */
+.el-aside{
+  background-color: #fff;
+  top:80px;
+}
+.el-main{
+    top:80px;
+}
 .el-icon-edit {
   font-size: 30px;
   color: blueviolet;
