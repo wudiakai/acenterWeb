@@ -19,7 +19,7 @@ import { EventBus } from '@/event-bus.js'
 export default {
   data() {
     return {
-      active: 4
+      active: ''
     }
   },
   mounted() {
