@@ -42,10 +42,8 @@
 
 <script>
 // import { EventBus } from '@/event-bus.js'
+import C_DEF from '@/common/const'
 import axios from 'axios'
-
-const SERVER_URL = 'http://localhost:2022'
-// const SERVER_URL = 'http://10.1.79.81:2022'
 
 export default {
   data() {
@@ -85,7 +83,7 @@ export default {
       }
       const fileFormData = new FormData()
       fileFormData.append('file', this.files, this.fileName) // filename是键，file是值，就是要传的文件，test.zip是要传的文件名
-      axios.post(SERVER_URL + '/tools/config', fileFormData)
+      axios.post(C_DEF.SERVER_URL + '/tools/config', fileFormData)
         .then((res) => {
           // debugger
           // console.log(res)
@@ -99,7 +97,7 @@ export default {
     download() {
       axios({
         method: 'GET',
-        url: SERVER_URL + '/tools/config/config',
+        url: C_DEF.SERVER_URL + '/tools/config/config',
         responseType: 'blob'
       }).then(res => {
         console.log(res)
