@@ -11,12 +11,27 @@ const routes = [
   {
     path: '/home', // 模块管理
     name: 'home',
-    component: () => import('@/views/home/ModuleView.vue')
+    component: () => import('@/views/SolutionView.vue')
+  },
+  {
+    path: '/home/:name', // 模块管理
+    name: 'home',
+    component: () => import('@/views/SolutionView.vue')
+  },
+  {
+    path: '/module', // 模块管理
+    name: 'module',
+    component: () => import('@/views/ModuleView.vue')
+  },
+  {
+    path: '/module/:name', // 模块管理
+    name: 'module',
+    component: () => import('@/views/ModuleView.vue')
   },
   {
     path: '/tools', // 工具管理
     name: 'tools',
-    component: () => import('@/views/home/ToolsView.vue'),
+    component: () => import('@/views/ToolsView.vue'),
     redirect: '/configtool',
 
     children: [
@@ -41,7 +56,7 @@ const routes = [
   {
     path: '/api', // Android doc
     name: 'api',
-    component: () => import('@/views/home/ApiView.vue'),
+    component: () => import('@/views/ApiView.vue'),
 
     children: [
       {

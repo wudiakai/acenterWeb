@@ -44,7 +44,7 @@ export default {
   },
   mounted() {
     console.log('module view mounted')
-    highLightButton(2)
+    highLightButton(3)
   },
   methods: {
     handleSelect(key, keyPath) {

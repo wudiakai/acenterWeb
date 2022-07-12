@@ -27,7 +27,7 @@ export default {
   },
   mounted() {
     console.log('module api mounted')
-    highLightButton(1)
+    highLightButton(2)
     // this.$refs.tempHtml.contentDocument.documentElement.innerHTML = this.h5file
   },
   methods: {

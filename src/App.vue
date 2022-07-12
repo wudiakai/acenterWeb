@@ -3,10 +3,11 @@
     <el-container class="root">
       <el-header class="myheader1">
         <div class="myheader">
-          <!-- <el-button ref="btn_prj" @click="choosePrj"> 解决方案 </el-button> -->
-          <el-button :type="active===0?'primary':''" @click="chooseModule"> 模块说明 </el-button>
-          <el-button :type="active===1?'primary':''" @click="chooseApi"> 接口定义 </el-button>
-          <el-button :type="active===2?'primary':''" @click="chooseTools"> 工具 </el-button>
+<!--           <el-button ref="btn_prj" @click="choosePrj"> 解决方案 </el-button> -->
+          <el-button :type="active===0?'primary':''" @click="chooseSolution"> 解决方案 </el-button>
+          <el-button :type="active===1?'primary':''" @click="chooseModule"> 模块说明 </el-button>
+          <el-button :type="active===2?'primary':''" @click="chooseApi"> 接口定义 </el-button>
+          <el-button :type="active===3?'primary':''" @click="chooseTools"> 工具 </el-button>
         </div>
       </el-header>
         <router-view />
@@ -28,11 +29,11 @@ export default {
     })
   },
   methods: {
-    // choosePrj() {
-    //   this.$router.push('/home')
-    // },
-    chooseModule() {
+    chooseSolution() {
       this.$router.push('/home')
+    },
+    chooseModule() {
+      this.$router.push('/module')
     },
     chooseApi() {
       this.$router.push('/api')
