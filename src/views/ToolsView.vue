@@ -2,16 +2,16 @@
   <el-container>
     <el-aside width="200px">
       <el-menu router :default-active="activeIndex">
-      <el-menu-item index="/configtool">
-        <span slot="title">配置文件</span>
-      </el-menu-item>
-      <el-menu-item index="/signtool">
-        <span slot="title">应用签名</span>
-      </el-menu-item>
-      <el-menu-item index="/vhaltool">
-        <span slot="title">V-HAL工具</span>
-      </el-menu-item>
-    </el-menu>
+        <el-menu-item index="/configtool">
+          <span slot="title">配置文件</span>
+        </el-menu-item>
+        <el-menu-item index="/signtool">
+          <span slot="title">应用签名</span>
+        </el-menu-item>
+        <el-menu-item index="/vhaltool">
+          <span slot="title">V-HAL工具</span>
+        </el-menu-item>
+      </el-menu>
     </el-aside>
     <!-- markdown 内容显示区域 -->
     <el-main>
@@ -21,8 +21,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-import C_DEF, { highLightButton } from '@/common/const'
+import { highLightButton } from '@/common/const'
 
 export default {
   data() {
@@ -32,8 +31,8 @@ export default {
   },
   async beforeCreate() {
     const that = this
-    await axios
-      .get(C_DEF.SERVER_URL + '/markdownList/module')
+    await this.$axios
+      .get('/markdownList/module')
       .then((result) => {
         that.list = result.data
         that.markdown(that.list[0].title)
@@ -59,8 +58,8 @@ export default {
     },
     markdown(file) {
       const that = this
-      axios
-        .get(C_DEF.SERVER_URL + '/content/' + file)
+      this.$axios
+        .get('/content/' + file)
         .then((result) => {
           that.content = result.data.data
         })
@@ -82,10 +81,12 @@ export default {
   background-color: #fff;
   color: white;
 }
-.el-aside{
+
+.el-aside {
   background-color: #fff;
   /* top:80px; */
 }
+
 /* .el-main{
     top:80px;
 } */

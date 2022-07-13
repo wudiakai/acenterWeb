@@ -1,14 +1,14 @@
 <template>
   <el-container ref="myContainer">
     <el-aside>
-      <el-menu align="left" @select="handleSelect">
+      <el-menu class="my_menu" @select="handleSelect">
         <template v-for="(item, primary) in list">
           <el-menu-item
             v-if="!item.submenu"
             :key="primary"
             :index="primary.toString()"
           >
-            <span slot="title">{{ item.title }} </span>
+            <span slot="title" :title="item.title">{{ item.title }} </span>
           </el-menu-item>
           <el-submenu v-else :key="primary" :index="primary.toString()">
             <template slot="title">
@@ -19,7 +19,9 @@
               :key="subitem"
               :index="primary.toString() + '-' + subindex.toString()"
             >
-              {{ subitem }}
+              <span :title="subitem">
+                {{ subitem }}
+              </span>
             </el-menu-item>
           </el-submenu>
         </template>
@@ -35,7 +37,7 @@
       />
     </el-main>
     <!-- 右侧边栏 目录 -->
-    <el-aside style="right: 0">
+    <el-aside class="my_catalog">
       <side-catalog
         class="catalog"
         v-bind="catalogProps"
@@ -58,8 +60,6 @@ import 'highlight.js/styles/googlecode.css'
 import 'vue-side-catalog/lib/vue-side-catalog.css'
 import SideCatalog from 'vue-side-catalog'
 // import SideCatalog from "@/components/main.vue";
-import axios from 'axios'
-import C_DEF from '@/common/const.js'
 import {highLightButton} from '@/common/const.js'
 
 export default {
@@ -75,7 +75,6 @@ export default {
       isShowCata: false,
       catalogProps: {
         container: '#root',
-        levelList: ['h1', 'h2', 'h3', 'h4', 'h5'],
         watch: true
       },
       clientHeight: ''
@@ -83,8 +82,8 @@ export default {
   },
   async beforeCreate() {
     const that = this
-    await axios
-      .get(C_DEF.SERVER_URL + '/markdownList/module')
+    await this.$axios
+      .get('/markdownList/module')
       .then((result) => {
         console.log(result)
         that.list = result.data
@@ -124,8 +123,8 @@ export default {
     },
     markdown(file) {
       const that = this
-      axios
-        .get(C_DEF.SERVER_URL + '/content/' + file)
+      this.$axios
+        .get('/content/' + file)
         .then((result) => {
           that.content = result.data.data
           that.gotoTop()
@@ -180,5 +179,34 @@ export default {
 
 .backtop {
   height: 100%;
+}
+
+.markdown-body {
+  margin-left: 10px;
+}
+
+.my_menu {
+  overflow: scroll;
+  text-align: left;
+  height: 600px;
+}
+
+.my_catalog {
+  overflow: scroll;
+  height: 100%;
+  right: 0;
+}
+
+/**修改全局的滚动条*/
+/**滚动条的宽度*/
+::-webkit-scrollbar {
+  width: 8px;
+
+}
+
+/*//滚动条的滑块*/
+::-webkit-scrollbar-thumb {
+  background-color: #eaecf1;
+  border-radius: 3px;
 }
 </style>

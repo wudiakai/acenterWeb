@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {EventBus} from '@/event-bus.js'
+import { EventBus } from '@/event-bus.js'
 // export const SERVER_URL = 'http://localhost:2022'
 export const SERVER_URL = 'http://10.1.79.81:2022'
 

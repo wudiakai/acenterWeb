@@ -6,12 +6,15 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'github-markdown-css'
 import 'highlight.js/styles/github.css'
+import axios from 'axios'
 
 // Vue.prototype.$EventBus = new Vue()
-
-Vue.use(ElementUI)
+import './axios'
 
 Vue.config.productionTip = false
+Vue.prototype.$axios = axios
+
+Vue.use(ElementUI)
 
 new Vue({
   router,
