@@ -1,5 +1,8 @@
 <template>
   <el-container ref="myContainer">
+    <template>
+      <el-backtop class="my_backtop"></el-backtop>
+    </template>
     <el-aside>
       <el-menu class="my_menu" @select="handleSelect">
         <template v-for="(item, primary) in list">
@@ -28,7 +31,7 @@
       </el-menu>
     </el-aside>
     <!-- markdown 内容显示区域 -->
-    <el-main>
+    <el-main id="my_content">
       <VueMarkdown
         :source="content"
         class="markdown-body"
@@ -196,7 +199,11 @@ export default {
   height: 100%;
   right: 0;
 }
-
+.my_backtop{
+  background-color: #f2f5f6;
+  box-shadow: 0 0 6px rgba(0,0,0, .20);
+  text-align: center;
+}
 /**修改全局的滚动条*/
 /**滚动条的宽度*/
 ::-webkit-scrollbar {
