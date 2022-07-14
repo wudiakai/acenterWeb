@@ -41,7 +41,7 @@
 .my_menu {
     overflow: scroll;
     text-align: left;
-    height: 600px;
+    height: 700px;
 }
 
 .my_catalog {
@@ -67,4 +67,14 @@
 ::-webkit-scrollbar-thumb {
     background-color: #eaecf1;
     border-radius: 3px;
+}
+
+.el-submenu.is-opened>.el-submenu__title .el-submenu__icon-arrow{
+    display: none;
+
+}
+
+.el-submenu>.el-submenu__title .el-submenu__icon-arrow{
+    display: none;
+
 }

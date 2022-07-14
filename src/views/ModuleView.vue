@@ -4,7 +4,7 @@
       <el-backtop class="my_backtop"></el-backtop>
     </template>
     <el-aside>
-      <el-menu class="my_menu" @select="handleSelect">
+      <el-menu class="my_menu" @select="handleSelect" default-openeds='[1,2,3,4,5,6,7,8,9,10]'>
         <template v-for="(item, primary) in list">
           <el-menu-item
             v-if="!item.submenu"
@@ -15,7 +15,7 @@
           </el-menu-item>
           <el-submenu v-else :key="primary" :index="primary.toString()">
             <template slot="title">
-              {{ item.title }}
+              <b>{{ item.title }}</b>
             </template>
             <el-menu-item
               v-for="(subitem, subindex) in item.sublist"

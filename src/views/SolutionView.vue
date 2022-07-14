@@ -4,23 +4,23 @@
       <el-backtop class="my_backtop"></el-backtop>
     </template>
     <el-aside>
-      <el-menu class="my_menu" @select="handleSelect">
-        <template v-for="(item, primary) in list">
+      <el-menu class="my_menu" @select="handleSelect" default-openeds='[1,2,3,4,5,6,7,8,9,10]'>
+        <template v-for="(item, index) in list">
           <el-menu-item
             v-if="!item.submenu"
-            :key="primary"
-            :index="primary.toString()"
+            :key="index"
+            :index="index.toString()"
           >
             <span slot="title" :title="item.title">{{ item.title }} </span>
           </el-menu-item>
-          <el-submenu v-else :key="primary" :index="primary.toString()">
+          <el-submenu v-else :key="index" :index="index.toString()">
             <template slot="title">
-              {{ item.title }}
+              <b>{{ item.title }}</b>
             </template>
             <el-menu-item
               v-for="(subitem, subindex) in item.sublist"
               :key="subitem"
-              :index="primary.toString() + '-' + subindex.toString()"
+              :index="index.toString() + '-' + subindex.toString()"
             >
               <span :title="subitem">
                 {{ subitem }}
