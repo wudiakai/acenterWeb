@@ -13,7 +13,7 @@
           >
             <span slot="title" :title="item.title">{{ item.title }} </span>
           </el-menu-item>
-          <el-submenu v-else :key="index" :index="index.toString()">
+          <el-submenu v-else :key="index" :index="index.toString()" >
             <template slot="title">
               <b>{{ item.title }}</b>
             </template>

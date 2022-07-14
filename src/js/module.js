@@ -28,6 +28,7 @@ export default {
       isShowCata: false,
       catalogProps: {
         container: '#root',
+        levelList: ['h1', 'h2', 'h3', 'h4', 'h5'],
         watch: true
       },
       clientHeight: '',
