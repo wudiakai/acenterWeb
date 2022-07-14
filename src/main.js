@@ -8,8 +8,7 @@ import 'github-markdown-css'
 import 'highlight.js/styles/github.css'
 import axios from 'axios'
 
-// Vue.prototype.$EventBus = new Vue()
-import './axios'
+import './js/axios'
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios

@@ -57,163 +57,22 @@
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
-import VueMarkdown from 'vue-markdown'
+// import VueMarkdown from 'vue-markdown'
 import 'github-markdown-css'
 import 'highlight.js/styles/googlecode.css'
 import 'vue-side-catalog/lib/vue-side-catalog.css'
-import SideCatalog from 'vue-side-catalog'
-// import SideCatalog from "@/components/main.vue";
-import {highLightButton} from '@/common/const.js'
+// import SideCatalog from 'vue-side-catalog'
+import {highLightButton} from '@/js/util.js'
+import moduleJs from '@/js/module'
 
 export default {
-  name: 'Input',
-  components: {
-    SideCatalog,
-    VueMarkdown
-  },
-  data() {
-    return {
-      content: '',
-      list: [],
-      isShowCata: false,
-      catalogProps: {
-        container: '#root',
-        watch: true
-      },
-      clientHeight: ''
-    }
-  },
-  async beforeCreate() {
-    const that = this
-    await this.$axios
-      .get('/markdownList/module')
-      .then((result) => {
-        console.log(result)
-        that.list = result.data
-
-        let module = this.$route.params.name
-        console.log(module)
-        if (module === undefined) {
-          that.markdown(that.list[0]['title'])
-        } else {
-          this.markdown(module)
-        }
-      })
-      .catch((err) => {
-        console.log('error: ' + err)
-      })
-  },
+  ...moduleJs,
   mounted() {
-    console.log('module view mounted')
     highLightButton(1)
-
-    this.clientHeight = `${document.documentElement.clientHeight}`
-    window.onresize = function temp() {
-      this.clientHeight = `${document.documentElement.clientHeight}`
-    }
-  },
-  methods: {
-    handleSelect(key, keyPath) {
-      let file = ''
-      if (keyPath.length > 1) {
-        const subindex = keyPath[1].split('-')
-        file = this.list[keyPath[0]]['sublist'][subindex[1]]
-      } else {
-        file = this.list[keyPath[0]]['title']
-      }
-      this.$router.push('/module/' + file)
-      this.markdown(file)
-    },
-    markdown(file) {
-      const that = this
-      this.$axios
-        .get('/content/' + file)
-        .then((result) => {
-          that.content = result.data.data
-          that.gotoTop()
-        })
-        .then(() => {
-          that.isShowCata = true
-        })
-        .catch((err) => {
-          console.log('error: ' + err)
-        })
-    },
-    gotoTop() {
-      document.body.scrollTop = 0
-      document.documentElement.scrollTop = 0
-    }
   }
 }
 </script>
 
 <style scoped>
-.el-container {
-  position: relative;
-  height: 500px;
-  background-color: #fff;
-  color: white;
-}
-
-.el-aside {
-  position: fixed;
-  width: 200px;
-  margin: 6% auto;
-  overflow-y: hidden;
-}
-
-.el-main {
-  position: absolute;
-  max-width: 60%;
-  min-width: 60%;
-  top: 65px;
-  margin: 0 20% 0 20%;
-  direction: ltr;
-}
-
-.catalog {
-  text-align: left;
-  color: black;
-}
-
-.content {
-  height: 100%;
-}
-
-.backtop {
-  height: 100%;
-}
-
-.markdown-body {
-  margin-left: 10px;
-}
-
-.my_menu {
-  overflow: scroll;
-  text-align: left;
-  height: 600px;
-}
-
-.my_catalog {
-  overflow: scroll;
-  height: 100%;
-  right: 0;
-}
-.my_backtop{
-  background-color: #f2f5f6;
-  box-shadow: 0 0 6px rgba(0,0,0, .20);
-  text-align: center;
-}
-/**修改全局的滚动条*/
-/**滚动条的宽度*/
-::-webkit-scrollbar {
-  width: 8px;
-
-}
-
-/*//滚动条的滑块*/
-::-webkit-scrollbar-thumb {
-  background-color: #eaecf1;
-  border-radius: 3px;
-}
+@import "@/css/module.css";
 </style>

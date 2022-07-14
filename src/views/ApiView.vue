@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { highLightButton } from '@/common/const'
+import { highLightButton } from '@/js/util'
 
 export default {
   data() {
