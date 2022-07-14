@@ -4,6 +4,7 @@ import axios from 'axios'
 // import store from './store'
 
 axios.defaults.baseURL = 'http://10.1.79.81:2022'
+// axios.defaults.baseURL = 'http://localhost:2022'
 
 // 设置前置拦截
 // axios.interceptors.request.use(config => {

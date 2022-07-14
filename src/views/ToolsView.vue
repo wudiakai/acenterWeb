@@ -29,20 +29,7 @@ export default {
       activeIndex: '/configtool'
     }
   },
-  async beforeCreate() {
-    const that = this
-    await this.$axios
-      .get('/markdownList/module')
-      .then((result) => {
-        that.list = result.data
-        that.markdown(that.list[0].title)
-      })
-      .catch((err) => {
-        console.log('error: ' + err)
-      })
-  },
   mounted() {
-    console.log('module view mounted')
     highLightButton(3)
   },
   methods: {
@@ -55,20 +42,6 @@ export default {
         file = this.list[keyPath[0]].title
       }
       this.markdown(file)
-    },
-    markdown(file) {
-      const that = this
-      this.$axios
-        .get('/content/' + file)
-        .then((result) => {
-          that.content = result.data.data
-        })
-        .then(() => {
-          that.isShowCata = true
-        })
-        .catch((err) => {
-          console.log('error: ' + err)
-        })
     }
   }
 }

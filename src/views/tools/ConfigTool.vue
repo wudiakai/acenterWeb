@@ -2,7 +2,7 @@
   <el-container>
     <el-main>
       <el-row :gutter="20" style="color:#000">
-        <el-col :span="4" :offset="2" ><b>配置文件生成工具</b></el-col>
+        <el-col :span="4" :offset="2"><b>配置文件生成工具</b></el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col :span="8" :offset="2">
@@ -16,7 +16,7 @@
             <div class="el-upload__text">
               将文件拖到此处，或<em>点击上传</em>
             </div>
-            <div slot="tip" class="el-upload-list__item-name">{{fileName}}</div>
+            <div slot="tip" class="el-upload-list__item-name">{{ fileName }}</div>
             <!-- <div slot="tip" class="el-upload__tip">代码生成成功，<a href="#" @onclick="download"> 点击下载</a></div> -->
           </el-upload>
         </el-col>
@@ -24,10 +24,12 @@
       <el-row :gutter="20">
         <el-col :span="2" :offset="3">
           <a href="./static/AndroidPF配置表.xlsx"
-            rel="external nofollow"
-            download="AndroidPF配置表.xlsx"><el-button type="info">下载模板</el-button></a>
+             rel="external nofollow"
+             download="AndroidPF配置表.xlsx">
+            <el-button type="info">下载模板</el-button>
+          </a>
         </el-col>
-         <el-col :span="2" :offset="1">
+        <el-col :span="2" :offset="1">
           <el-button type="primary" @click="submitUpload()">生成代码</el-button>
         </el-col>
       </el-row>
