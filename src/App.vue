@@ -3,24 +3,28 @@
     <el-container class="root">
       <el-header class="myheader1">
         <div class="myheader">
-<!--           <el-button ref="btn_prj" @click="choosePrj"> 解决方案 </el-button> -->
-          <el-button :type="active===0?'primary':''" @click="chooseSolution"> 解决方案 </el-button>
-          <el-button :type="active===1?'primary':''" @click="chooseModule"> 模块说明 </el-button>
-          <el-button :type="active===2?'primary':''" @click="chooseApi"> 接口定义 </el-button>
-          <el-button :type="active===3?'primary':''" @click="chooseTools"> 工具 </el-button>
+          <img src="@/assets/center.png" align="left" height="30px">
+
+          <el-button :type="active===index ?'primary':''" @click="chooseTab(index)" v-for="(title, index) in titles"
+                     :key="title"> {{ title }}
+          </el-button>
+
         </div>
       </el-header>
-        <router-view />
+      <router-view/>
     </el-container>
   </div>
 </template>
 
 <script>
 import { EventBus } from '@/js/event-bus'
+
 export default {
   data() {
     return {
-      active: ''
+      active: '',
+      routers: ['/home', '/module', '/api', '/tools'],
+      titles: ['解决方案', '模块说明', '接口定义', '工具']
     }
   },
   mounted() {
@@ -29,17 +33,9 @@ export default {
     })
   },
   methods: {
-    chooseSolution() {
-      this.$router.push('/home')
-    },
-    chooseModule() {
-      this.$router.push('/module')
-    },
-    chooseApi() {
-      this.$router.push('/api')
-    },
-    chooseTools() {
-      this.$router.push('/tools')
+    chooseTab(index) {
+      const route = this.routers[index]
+      this.$router.push(route)
     }
   }
 }
@@ -53,9 +49,11 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-.myheader{
+
+.myheader {
   margin: 10px auto;
 }
+
 .myheader1 {
   background-color: #fff;
   position: fixed;
