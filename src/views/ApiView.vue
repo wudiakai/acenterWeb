@@ -1,17 +1,11 @@
 <template>
-  <!-- <el-container>
-    <el-main> -->
-      <div >
-        <p>API  页面</p>
-        <!-- <iframe :src="src" style= "width:100%;height:100%" frameborder="0"></iframe> -->
-        <!-- <iframe src="static/class.html" ref="iframe" style= "width:100%;height:100%" frameborder="0"></iframe> -->
-        <!-- <a href="static/class.html" target ="_blank">Android Doc</a>
-        <p>
-        <a href="http://www.baidu.com">baidu</a>
-        </p> -->
-      </div>
-    <!-- </el-main>
-  </el-container> -->
+  <div class="container">
+<!--    <p>API 页面</p>-->
+<!--    <iframe id="frame" src="@/asserts/test.html" ref="iframe"> </iframe>-->
+    <iframe
+      id="frame" :src="src" frameborder="0" class="pc iframe">
+    </iframe>
+  </div>
 </template>
 
 <script>
@@ -20,21 +14,25 @@ import { highLightButton } from '@/js/util'
 export default {
   data() {
     return {
-      src: '/static/class.html'
-      // h5file: require('../../../public/static.class.html')
+      src: 'http://10.1.79.81:2021/reference/classes.html',
+      // src: 'file://10.1.79.81/likai/work/python/node/backend/ACenterWeb/Res/androiddoc/reference/index.html',
+      iframeWin: {}
       // src: '../../../static/class.html'
     }
   },
   mounted() {
-    console.log('module api mounted')
     highLightButton(2)
-  },
-  methods: {
-
   }
 }
 </script>
 
 <style scoped>
-
+.container{
+  width: 100%;
+  height: 100%;
+}
+#frame{
+  width: 100%;
+  height: 700px;
+}
 </style>
