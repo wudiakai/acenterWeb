@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div class="container">
     <h3>V-HAL生成工具</h3>
     <el-upload
       class="upload-demo"
@@ -14,7 +14,7 @@
       <div slot="tip" class="el-upload-list__item-name">{{ fileName }}</div>
       <div slot="tip" class="el-upload__tip" v-show="isShowDownload">代码生成成功，<a href="#" @click="download('vhal')"> 点击下载</a></div>
     </el-upload>
-    <div id="subcontainer">
+    <div class="subcontainer">
       <a href="./static/vhal配置表.xls"
          rel="external nofollow"
          download="vhal配置表.xls">
@@ -37,24 +37,5 @@ export default {
 </script>
 
 <style scoped>
-#container {
-  display: flex;
-  width: 500px;
-  height: 400px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  /*flex-direction: column;*/
-  color: #000;
-}
-
-#subcontainer {
-  display: flex;
-  /*flex-direction: row;*/
-  /*justify-content: space-around;*/
-}
-
-el-button {
-  margin: 20px;
-}
+@import "@/css/tool.css";
 </style>
