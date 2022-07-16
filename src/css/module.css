@@ -23,10 +23,6 @@
     height: 100%;
 }
 
-.markdown-body {
-    margin-left: 10px;
-}
-
 /*左侧菜单栏*/
 .my_menu {
     position: fixed;
@@ -36,6 +32,17 @@
     left: 5px;
     width: 250px;
 }
+.el-menu-item{
+    font-size: 14px;
+    /*max-height: 30px;*/
+}
+
+/* 正文内容 */
+.markdown-body {
+    margin-left: 10px;
+    font-size: 15px;
+}
+
  /* 监视屏幕宽度 */
 @media screen and (max-width: 900px) {
     .my_menu {
@@ -59,6 +66,7 @@
     height: 100%;
     right: 0;
     max-width: 300px;
+    font-size: 15px;
 }
 
 /* 右侧索引栏  2级  */

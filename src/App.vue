@@ -39,12 +39,15 @@ export default {
 </script>
 
 <style>
-#app {
-  /*font-family: Avenir, Helvetica, Arial, sans-serif;*/
+/* 全局样式 */
+body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  min-width: 800px;
+  /*font-family:”Microsoft YaHei”,Arial,Helvetica,sans-serif,”宋体”;*/
 }
 #shadow{
   height: 60px; /* 等于myheader的高度 */
@@ -65,14 +68,9 @@ export default {
 }
 
 .logo {
-  display: block;
+  display: flex;
   position: fixed;
-  top: 5px;
+  align-items: center;
   left: 20px;
-}
-/* 全局样式 */
-body {
-  min-width: 800px;
-  font-family:”Microsoft YaHei”,Arial,Helvetica,sans-serif,”宋体”;
 }
 </style>
