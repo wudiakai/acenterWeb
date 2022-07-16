@@ -11,11 +11,13 @@ function getModule() {
   }
   return module
 }
+
 function parsePath(input) {
   let path = input.split('/')[1]
   path = '/' + path + '/'
   return path
 }
+
 export default {
   components: {
     SideCatalog,

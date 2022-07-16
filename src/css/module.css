@@ -1,30 +1,19 @@
 .el-container {
     position: relative;
-    height: 500px;
+    height: 100%;
     background-color: #fff;
     color: white;
 }
 
-.el-aside {
-    position: fixed;
-    width: 200px;
-    margin: 6% auto;
-    overflow-y: hidden;
-}
-
 .el-main {
     position: absolute;
-    max-width: 60%;
+    /*max-width: 60%;*/
     min-width: 60%;
-    top: 65px;
-    margin: 0 20% 0 20%;
+    top: 10px;
+    margin: 0 300px 0 260px;
     direction: ltr;
 }
 
-.catalog {
-    text-align: left;
-    color: black;
-}
 
 .content {
     height: 100%;
@@ -38,18 +27,47 @@
     margin-left: 10px;
 }
 
+/*左侧菜单栏*/
 .my_menu {
+    position: fixed;
     overflow: scroll;
     text-align: left;
     height: 700px;
+    left: 5px;
+    width: 250px;
+}
+ /* 监视屏幕宽度 */
+@media screen and (max-width: 900px) {
+    .my_menu {
+        display: none;
+    }
+
+    .my_catalog {
+        display: none;
+    }
+
+    .el-main {
+        margin: 0 auto;
+        width: 100%;
+    }
 }
 
+/* 右侧索引栏 */
 .my_catalog {
+    position: fixed;
     overflow: scroll;
     height: 100%;
     right: 0;
+    max-width: 300px;
 }
 
+/* 右侧索引栏  2级  */
+.catalog {
+    text-align: left;
+    color: black;
+}
+
+/* 返回顶部 */
 .my_backtop {
     background-color: #f2f5f6;
     box-shadow: 0 0 6px rgba(0, 0, 0, .20);
@@ -69,12 +87,12 @@
     border-radius: 3px;
 }
 
-.el-submenu.is-opened>.el-submenu__title .el-submenu__icon-arrow{
+/* 不显示menu的箭头 */
+.el-submenu.is-opened > .el-submenu__title .el-submenu__icon-arrow {
     display: none;
-
 }
 
-.el-submenu>.el-submenu__title .el-submenu__icon-arrow{
+.el-submenu > .el-submenu__title .el-submenu__icon-arrow {
     display: none;
 
 }

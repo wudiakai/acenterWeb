@@ -1,22 +1,16 @@
 <template>
-  <el-container>
-    <el-aside width="200px">
+  <el-container id="containter">
+    <div id="menu">
       <el-menu router :default-active="activeIndex">
-        <el-menu-item index="/configtool">
-          <span slot="title">配置文件</span>
-        </el-menu-item>
-        <el-menu-item index="/signtool">
-          <span slot="title">应用签名</span>
-        </el-menu-item>
-        <el-menu-item index="/vhaltool">
-          <span slot="title">V-HAL工具</span>
+        <el-menu-item :index="routes[index]" v-for="(name, index) in names" :key="name">
+          {{ name }}
         </el-menu-item>
       </el-menu>
-    </el-aside>
-    <!-- markdown 内容显示区域 -->
-    <el-main>
+    </div>
+    <!-- 内容区 -->
+    <div class="content">
       <router-view/>
-    </el-main>
+    </div>
   </el-container>
 </template>
 
@@ -26,41 +20,35 @@ import { highLightButton } from '@/js/util'
 export default {
   data() {
     return {
-      activeIndex: '/configtool'
+      activeIndex: '/configtool',
+      routes: ['/configtool', '/signtool', '/vhaltool'],
+      names: ['配置文件', '应用签名', 'V-HAL工具']
     }
   },
   mounted() {
     highLightButton(3)
   },
-  methods: {
-    handleSelect(key, keyPath) {
-      let file = ''
-      if (keyPath.length > 1) {
-        const subindex = keyPath[1].split('-')
-        file = this.list[keyPath[0]].sublist[subindex[1]]
-      } else {
-        file = this.list[keyPath[0]].title
-      }
-      this.markdown(file)
-    }
-  }
+  methods: {}
 }
 </script>
 
 <style scoped>
 
-.el-container {
-  margin-top: 65px;
-  background-color: #fff;
-  color: white;
+.content{
+  margin-left: 250px;
 }
 
-.el-aside {
-  background-color: #fff;
-  /* top:80px; */
+#menu {
+  position: fixed;
+  overflow: scroll;
+  text-align: left;
+  height: 700px;
+  left: 5px;
+  width: 250px;
+  /*top: 5px;*/
+  /*left: 5px;*/
+  /*width: 50px;*/
+  /*background-color: #fff;*/
 }
 
-/* .el-main{
-    top:80px;
-} */
 </style>

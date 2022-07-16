@@ -1,7 +1,7 @@
 <template>
   <!-- <el-container>
     <el-main> -->
-      <div style="margin-top:65px">
+      <div >
         <p>API  页面</p>
         <!-- <iframe :src="src" style= "width:100%;height:100%" frameborder="0"></iframe> -->
         <!-- <iframe src="static/class.html" ref="iframe" style= "width:100%;height:100%" frameborder="0"></iframe> -->
@@ -28,7 +28,6 @@ export default {
   mounted() {
     console.log('module api mounted')
     highLightButton(2)
-    // this.$refs.tempHtml.contentDocument.documentElement.innerHTML = this.h5file
   },
   methods: {
 

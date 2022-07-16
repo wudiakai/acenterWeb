@@ -4,7 +4,8 @@
       <el-backtop class="my_backtop"></el-backtop>
     </template>
     <el-aside>
-      <el-menu class="my_menu" @select="handleSelect" default-openeds='[1,2,3,4,5,6,7,8,9,10]'>
+      <el-menu class="my_menu" @select="handleSelect"
+               :default-openeds="['0','1','2','3','4','5','6','7','8','9','10']">
         <template v-for="(item, index) in list">
           <el-menu-item
             v-if="!item.submenu"
@@ -13,7 +14,7 @@
           >
             <span slot="title" :title="item.title">{{ item.title }} </span>
           </el-menu-item>
-          <el-submenu v-else :key="index" :index="index.toString()" >
+          <el-submenu v-else :key="index" :index="index.toString()">
             <template slot="title">
               <b>{{ item.title }}</b>
             </template>
@@ -40,13 +41,13 @@
       />
     </el-main>
     <!-- 右侧边栏 目录 -->
-    <el-aside class="my_catalog">
+    <div class="my_catalog">
       <side-catalog
         class="catalog"
         v-bind="catalogProps"
         v-if="isShowCata"
       ></side-catalog>
-    </el-aside>
+    </div>
     <div class="content">
       <div class="backtop">
         <el-backtop target=".content .backtop"></el-backtop>
@@ -62,7 +63,7 @@ import 'github-markdown-css'
 import 'highlight.js/styles/googlecode.css'
 import 'vue-side-catalog/lib/vue-side-catalog.css'
 // import SideCatalog from 'vue-side-catalog'
-import {highLightButton} from '@/js/util.js'
+import { highLightButton } from '@/js/util.js'
 import moduleJs from '@/js/module'
 
 export default {

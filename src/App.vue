@@ -1,18 +1,15 @@
 <template>
   <div id="app">
-    <el-container class="root">
-      <el-header class="myheader1">
-        <div class="myheader">
-          <img src="@/assets/center.png" align="left" height="30px">
-
-          <el-button :type="active===index ?'primary':''" @click="chooseTab(index)" v-for="(title, index) in titles"
-                     :key="title"> {{ title }}
-          </el-button>
-
-        </div>
-      </el-header>
-      <router-view/>
-    </el-container>
+    <div class="myheader">
+      <div class="logo">
+        <img src="@/assets/center.png" height="25px">
+      </div>
+      <el-button :type="active===index ?'primary':''" @click="chooseTab(index)" v-for="(title, index) in titles"
+                 :key="title"> {{ title }}
+      </el-button>
+    </div>
+    <div id="shadow"></div>
+    <router-view/>
   </div>
 </template>
 
@@ -43,26 +40,39 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /*font-family: Avenir, Helvetica, Arial, sans-serif;*/
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
-
-.myheader {
-  margin: 10px auto;
+#shadow{
+  height: 60px; /* 等于myheader的高度 */
 }
-
-.myheader1 {
-  background-color: #fff;
+.myheader {
+  display: flex;
   position: fixed;
+  background-color: #f7f7f7;
+  justify-content: center;
   width: 100%;
+  height: 60px;
+  margin: auto;
+  align-items: center;
   top: 0px;
-  margin: 0px auto;
-  height: 80px;
   z-index: 10;
   border-bottom: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+  /*box-shadow: 0 2px 4px rgba(0, 0, 0, .2);*/
+}
+
+.logo {
+  display: block;
+  position: fixed;
+  top: 5px;
+  left: 20px;
+}
+/* 全局样式 */
+body {
+  min-width: 800px;
+  font-family:”Microsoft YaHei”,Arial,Helvetica,sans-serif,”宋体”;
 }
 </style>
