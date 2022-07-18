@@ -14,7 +14,7 @@ import { highLightButton } from '@/js/util'
 export default {
   data() {
     return {
-      src: 'http://10.1.79.81:2021/reference/classes.html',
+      src: 'http://10.1.79.81:2023/reference/classes.html',
       // src: 'file://10.1.79.81/likai/work/python/node/backend/ACenterWeb/Res/androiddoc/reference/index.html',
       iframeWin: {}
       // src: '../../../static/class.html'

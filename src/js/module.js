@@ -93,6 +93,7 @@ export default {
         })
         .catch((err) => {
           console.log('error: ' + err)
+          that.content = '<center><strong>加载失败！<br><br>正在编写中......</strong></center>'
         })
     },
     gotoTop() {
