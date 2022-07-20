@@ -39,6 +39,11 @@ export default {
 </script>
 
 <style>
+* {
+  padding: 0;
+  margin: 0;
+}
+
 /* 全局样式 */
 body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -49,9 +54,11 @@ body {
   min-width: 800px;
   /*font-family:”Microsoft YaHei”,Arial,Helvetica,sans-serif,”宋体”;*/
 }
-#shadow{
+
+#shadow {
   height: 60px; /* 等于myheader的高度 */
 }
+
 .myheader {
   display: flex;
   position: fixed;

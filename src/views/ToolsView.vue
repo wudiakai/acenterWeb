@@ -21,8 +21,8 @@ export default {
   data() {
     return {
       activeIndex: '/configtool',
-      routes: ['/configtool', '/signtool', '/vhaltool'],
-      names: ['配置文件', '应用签名', 'V-HAL工具']
+      routes: ['/configtool', '/signtool', '/vhaltool', '/audiofocus', '/audiomix'],
+      names: ['配置文件', '应用签名', 'V-HAL工具', 'Audio焦点管理配置表', 'Audio混音配置表']
     }
   },
   mounted() {

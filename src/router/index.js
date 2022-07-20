@@ -49,6 +49,16 @@ const routes = [
         path: '/vhaltool',
         name: 'vhaltool',
         component: () => import('@/views/tools/VhalTool.vue')
+      },
+      {
+        path: '/audiofocus',
+        name: 'audiofocus',
+        component: () => import('@/views/tools/AudiofocusTool.vue')
+      },
+      {
+        path: '/audiomix',
+        name: 'audiomix',
+        component: () => import('@/views/tools/AudiomixTool.vue')
       }
     ]
 
